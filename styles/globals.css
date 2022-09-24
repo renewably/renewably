@@ -17,10 +17,25 @@ a {
 
 @media (prefers-color-scheme: light) {
   html {
-    color-scheme: light;
+    /* color-scheme: dark; */
   }
   body {
-    color: black;
-    background: white;
+    /* color: white;
+    background: black; */
   }
+}
+
+ul.nav-container {
+  display: flex;
+  list-style-type: none;
+}
+
+/* ul.nav-container > li {
+  text-decoration: none;
+} */
+
+button.nav-button {
+  background-color: #679436;
+  color: white;
+  padding: 6px;
 }
