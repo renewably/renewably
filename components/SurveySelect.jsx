@@ -1,3 +1,5 @@
+import styles from "../styles/Home.module.css";
+
 const SurveyButton = ({ text, onSelect }) => {
   return (
     <button className="survey-button">{text}</button>
@@ -11,7 +13,7 @@ export const SurveySelect = ({ title, label='', options, trailingText }) => {
     )
   }
   return (
-    <div className="select-container">
+    <div className={styles.container}>
       <h2>{title}</h2>
       <h4>{label}</h4>
       {renderOptions(options)}
