@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { jsx, css } from '@emotion/react';
+// import styles from '../styles/global.css'; // TODO do styling better
 
 export const NavBar = (props) => {
   return (
-    <ul>
-      <li><button>Incentives</button></li>
-      <li><button>Trusted Affiliates</button></li>
-      <li><button>About Us</button></li>
-      <li><button>Blog</button></li>
-      <li><button>Login</button></li>
+    <ul className="nav-container">
+      <li><button className="nav-button">Incentives</button></li>
+      <li><button className="nav-button">Trusted Affiliates</button></li>
+      <li><button className="nav-button">About Us</button></li>
+      <li><button className="nav-button">Blog</button></li>
+      <li><button className="nav-button">Login</button></li>
     </ul>
   );
 };
