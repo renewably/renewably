@@ -1,10 +1,11 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
+import { NavBar } from "../components/NavBar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div>
-      <div>Nav bar</div>
+      <NavBar />
       <Component {...pageProps} />
     </div>
   );
