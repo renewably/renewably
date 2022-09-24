@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { jsx, css } from '@emotion/react';
-// import styles from '../styles/global.css'; // TODO do styling better
 
 export const NavBar = (props) => {
   return (
