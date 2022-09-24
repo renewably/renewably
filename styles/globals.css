@@ -125,7 +125,3 @@ ul.navContainer {
   list-style-type: none;
   align-items: flex-start;
 }
-
-ul.navContainer > li:last-child {
-  align-self: flex-end;
-}
