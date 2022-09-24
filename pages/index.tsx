@@ -3,7 +3,9 @@ import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-
+import ProudPerson from "../public/images/ProudPerson.png";
+import Housie from "../public/images/housie.png";
+import Solar from "../public/images/Solar.png";
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -21,11 +23,6 @@ const Home: NextPage = () => {
         <div className={styles.grid}>
           <ul>
             <li>
-              <Link href="/">
-                <a>Home</a>
-              </Link>
-            </li>
-            <li>
               <Link href="/detail">
                 <a>Detail</a>
               </Link>
@@ -36,6 +33,15 @@ const Home: NextPage = () => {
               </Link>
             </li>
           </ul>
+        </div>
+        <div>
+          <h3>Let us simplify renewable energy for your home.</h3>
+          <div>
+            <Image src={ProudPerson} height={200} width={200} />
+            <Image src={Housie} height={200} width={200} />
+            <Image src={Solar} height={200} width={200} />
+          </div>
+          <button className={styles.actionButton}>Find Incentives</button>
         </div>
       </main>
 

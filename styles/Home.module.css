@@ -108,6 +108,11 @@
   margin-left: 0.5rem;
 }
 
+.actionButton {
+  background-color: #4a7c59;
+  color: white;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
