@@ -6,6 +6,7 @@ import styles from "../styles/Home.module.css";
 import ProudPerson from "../public/images/ProudPerson.png";
 import Housie from "../public/images/housie.png";
 import Solar from "../public/images/Solar.png";
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
