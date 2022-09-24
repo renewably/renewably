@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { jsx, css } from '@emotion/react';
+const NavButton = ({ text }) => {
+  const onClick = () => { // TODO prop
+    alert("THIS IS FAKE SILLY")
+  }
+  return (
+    <button className="nav-button" onClick={onClick}>{text}</button>
+  );
+};
 
 export const NavBar = (props) => {
   return (
     <ul className="nav-container">
-      <li><button className="nav-button">Incentives</button></li>
-      <li><button className="nav-button">Trusted Affiliates</button></li>
-      <li><button className="nav-button">About Us</button></li>
-      <li><button className="nav-button">Blog</button></li>
-      <li><button className="nav-button">Login</button></li>
+      <li><NavButton text="Incentives" /></li>
+      <li><NavButton text="Trusted Affiliates" /></li>
+      <li><NavButton text="About Us" /></li>
+      <li><NavButton text="Blog" /></li>
+      <li><NavButton text="Login" /></li>
     </ul>
   );
 };
