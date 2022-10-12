@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../public/images/RenewablyLogo.png";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/NavBar.module.css";
 
 const NavButton = ({ text }) => {
   const onClick = () => {
@@ -17,7 +17,7 @@ const NavButton = ({ text }) => {
 
 export const NavBar = (props) => {
   return (
-    <ul className="navContainer">
+    <ul className={styles.navContainer}>
       <li>
         <Link href="/">
           <Image src={logo} height={50} width={100} />
@@ -25,7 +25,7 @@ export const NavBar = (props) => {
       </li>
       <li>
         <Link href="/programs">
-          <a className={styles.navButton}>Incentives</a>
+          <button className={styles.navButton}>Incentives</button>
         </Link>
       </li>
       <li>

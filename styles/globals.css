@@ -119,9 +119,3 @@ a {
     background: black; */
   }
 }
-
-ul.navContainer {
-  display: flex;
-  list-style-type: none;
-  align-items: flex-start;
-}

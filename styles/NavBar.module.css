@@ -1,0 +1,15 @@
+.navContainer {
+  display: flex;
+  list-style-type: none;
+  align-items: flex-start;
+}
+
+.navButton {
+  background-color: #679436;
+  border: none;
+  border-radius: 5px;
+  box-shadow: none;
+  color: white;
+  margin: 2px 10px;
+  padding: 6px;
+}
