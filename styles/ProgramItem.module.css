@@ -1,0 +1,14 @@
+.container {
+  border-radius: 6px;
+  border: 3px solid #679436;
+  padding: 8px;
+  margin: 8px;
+}
+.container:hover,
+.container:focus {
+  cursor: pointer;
+}
+
+.name {
+  font-weight: bold;
+}

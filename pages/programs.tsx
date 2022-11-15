@@ -6,17 +6,29 @@ import {
 } from '@tanstack/react-query';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-
-// const getPrograms = async () => {
-//   const urlBase = 'https://programs.dsireusa.org/api/v1/programs';
-//   const hardCodedQuery =
-//     '?&draw=2&columns%5B0%5D%5Bdata%5D=name&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=true&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=stateObj.abbreviation&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=true&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=categoryObj.name&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=true&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=typeObj.name&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=true&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=published&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=true&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=createdTs&columns%5B5%5D%5Bname%5D=&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=true&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=updatedTs&columns%5B6%5D%5Bname%5D=&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=true&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&order%5B0%5D%5Bcolumn%5D=6&order%5B0%5D%5Bdir%5D=desc&start=0&length=50&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1660399517711';
-//   const response = await fetch(urlBase + hardCodedQuery);
-//   if (!response.ok) {
-//     throw new Error('Network response was not ok');
-//   }
-//   return response.json();
-// };
+import { ProgramItem } from '../components/ProgramItem';
+import { mockAPIResponse } from './api/mockData';
+const getPrograms = async () => {
+  try {
+    const urlBase =
+      'https://programs.dsireusa.org/api/v1/getprogramsbydate/20200101/20220101/json';
+    const response = await fetch(urlBase, {
+      mode: 'cors',
+      credentials: 'include',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        // 'Content-Type': 'application/json',
+        // Vary: 'Origin',
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log('ut oh! NO data', { error });
+  }
+};
 
 // export async function getServerSideProps() {
 //   const programs = await getPrograms();
@@ -29,7 +41,8 @@ const Programs: NextPage = () => {
   //   // initialData: props.programs,
   //   initialData: [],
   // });
-  const data = [];
+  const data = mockAPIResponse.data;
+  getPrograms();
 
   return (
     // <QueryClientProvider client={queryClient}>
@@ -41,10 +54,10 @@ const Programs: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>List of programs</h1>
+        <h1 className={styles.title}>We should put filters/breadcrumbs here</h1>
         <ul>
           {data?.map((program: any) => (
-            <div>{program.id}</div>
+            <ProgramItem program={program} />
           ))}
         </ul>
       </main>
