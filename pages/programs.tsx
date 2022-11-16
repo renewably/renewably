@@ -1,54 +1,85 @@
 import type { NextPage } from 'next';
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from '@tanstack/react-query';
 import Head from 'next/head';
+import * as qs from 'qs';
 import styles from '../styles/Home.module.css';
 import { ProgramItem } from '../components/ProgramItem';
-import { mockAPIResponse } from './api/mockData';
-const getPrograms = async () => {
+
+export const getResultsWithFilters = async (start: number, length: number) => {
+  const params = {
+    draw: 1,
+    'columns[0][data]': 'name',
+    'columns[0][name]': '',
+    'columns[0][searchable]': true,
+    'columns[0][orderable]': true,
+    'columns[0][search][value]': '',
+    'columns[0][search][regex]': false,
+    'columns[1][data]': 'stateObj.abbreviation',
+    'columns[1][name]': '',
+    'columns[1][searchable]': true,
+    'columns[1][orderable]': true,
+    'columns[1][search][value]': '',
+    'columns[1][search][regex]': false,
+    'columns[2][data]': 'categoryObj.name',
+    'columns[2][name]': '',
+    'columns[2][searchable]': true,
+    'columns[2][orderable]': true,
+    'columns[2][search][value]': '',
+    'columns[2][search][regex]': false,
+    'columns[3][data]': 'typeObj.name',
+    'columns[3][name]': '',
+    'columns[3][searchable]': true,
+    'columns[3][orderable]': true,
+    'columns[3][search][value]': '',
+    'columns[3][search][regex]': false,
+    'columns[4][data]': 'published',
+    'columns[4][name]': '',
+    'columns[4][searchable]': true,
+    'columns[4][orderable]': true,
+    'columns[4][search][value]': '',
+    'columns[4][search][regex]': false,
+    'columns[5][data]': 'createdTs',
+    'columns[5][name]': '',
+    'columns[5][searchable]': true,
+    'columns[5][orderable]': true,
+    'columns[5][search][value]': '',
+    'columns[5][search][regex]': false,
+    'columns[6][data]': 'updatedTs',
+    'columns[6][name]': '',
+    'columns[6][searchable]': true,
+    'columns[6][orderable]': true,
+    'columns[6][search][value]': '',
+    'columns[6][search][regex]': false,
+    'order[0][column]': 6,
+    'order[0][dir]': 'desc',
+    start,
+    length,
+    'search[value]': '',
+    'search[regex]': false,
+    _: 1668629121419,
+  };
+  const queryString = qs.stringify(params);
+  const url = `https://programs.dsireusa.org/api/v1/programs?${queryString}`;
   try {
-    const urlBase =
-      'https://programs.dsireusa.org/api/v1/getprogramsbydate/20210101/20220101/json';
-    const response = await fetch(urlBase, {
-      mode: 'no-cors',
-      credentials: 'include',
-      headers: {
-        Accept: '*/*',
-        'Accept-Encoding': 'gzip, deflate, br',
-        // 'Access-Control-Allow-Origin': '*',
-        // 'Access-Control-Allow-Methods': 'GET',
-        // 'Access-Control-Allow-Headers': 'Content-Type',
-        Connection: 'keep-alive',
-        // 'Content-Type': 'application/json',
-        Vary: 'Origin',
-      },
-    });
-    const data = await response.json();
+    const res = await fetch(url);
+    const data = await res.json();
     return data;
   } catch (error) {
-    console.log('ut oh! NO data', { error });
+    return { error };
   }
 };
+export async function getServerSideProps() {
+  const programs = await getResultsWithFilters(0, 50);
+  return {
+    props: {
+      programs,
+    },
+  };
+}
 
-// export async function getServerSideProps() {
-//   const programs = await getPrograms();
-//   return { props: { programs } };
-// }
-
-const Programs: NextPage = () => {
-  // const queryClient = new QueryClient();
-  // const { data } = useQuery(['programs'], getPrograms, {
-  //   // initialData: props.programs,
-  //   initialData: [],
-  // });
-  const data = mockAPIResponse.data;
-  getPrograms();
+const Programs: NextPage = ({ programs }: any) => {
+  const data = programs.data;
 
   return (
-    // <QueryClientProvider client={queryClient}>
     <div className={styles.container}>
       <Head>
         <title>Programs</title>
@@ -57,6 +88,14 @@ const Programs: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
+        <button
+          onClick={async () => {
+            const nextPageData = await getResultsWithFilters(50, 50);
+            console.log({ nextPageData });
+          }}
+        >
+          Next page, doesnt work
+        </button>
         <h1 className={styles.title}>We should put filters/breadcrumbs here</h1>
         <ul>
           {data?.map((program: any) => (
@@ -67,7 +106,6 @@ const Programs: NextPage = () => {
 
       <footer className={styles.footer}></footer>
     </div>
-    // </QueryClientProvider>
   );
 };
 
