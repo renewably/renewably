@@ -11,16 +11,19 @@ import { mockAPIResponse } from './api/mockData';
 const getPrograms = async () => {
   try {
     const urlBase =
-      'https://programs.dsireusa.org/api/v1/getprogramsbydate/20200101/20220101/json';
+      'https://programs.dsireusa.org/api/v1/getprogramsbydate/20210101/20220101/json';
     const response = await fetch(urlBase, {
-      mode: 'cors',
+      mode: 'no-cors',
       credentials: 'include',
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        Accept: '*/*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        // 'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Methods': 'GET',
+        // 'Access-Control-Allow-Headers': 'Content-Type',
+        Connection: 'keep-alive',
         // 'Content-Type': 'application/json',
-        // Vary: 'Origin',
+        Vary: 'Origin',
       },
     });
     const data = await response.json();

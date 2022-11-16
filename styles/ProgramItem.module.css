@@ -1,12 +1,19 @@
 .container {
+  display: block;
+  cursor: pointer;
   border-radius: 6px;
-  border: 3px solid #679436;
+  border: 2px solid #679436;
   padding: 8px;
-  margin: 8px;
+  margin: 16px;
 }
 .container:hover,
 .container:focus {
-  cursor: pointer;
+  outline: none;
+  background-color: #679436;
+  opacity: 0.8;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: white;
+  transition: all 0.3s ease;
 }
 
 .name {

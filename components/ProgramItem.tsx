@@ -6,8 +6,8 @@ export const ProgramItem = ({ program }: any) => {
   const sectorSubcategory = program.sectorSubcategory?.name;
   const programType = program.typeObj?.name;
   return (
-    <Link href={`/program/${program.id}`}>
-      <div className={styles.container}>
+    <Link href={`/program/${program.id}`} key={program.id}>
+      <a className={styles.container}>
         <div className={styles.name}>{program.name}</div>
         {implementingSector && (
           <div>Implementing Sector: {implementingSector}</div>
@@ -16,7 +16,7 @@ export const ProgramItem = ({ program }: any) => {
           <div>Sector Subcategory: {sectorSubcategory}</div>
         )}
         {programType && <div>Incentive Type: {programType}</div>}
-      </div>
+      </a>
     </Link>
   );
 };
