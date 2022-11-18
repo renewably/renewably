@@ -1,9 +1,10 @@
 import * as qs from 'qs';
+import * as _ from 'lodash';
 
+export const PAGE_SIZE = 10;
 export const getResultsWithFilters = async (contextParams: any) => {
-  const pageSize = 10;
   const page = contextParams?.page || 1;
-  const start = pageSize * (page - 1);
+  const start = PAGE_SIZE * (page - 1);
   const params = {
     draw: 1,
     'columns[0][data]': 'name',
@@ -51,16 +52,19 @@ export const getResultsWithFilters = async (contextParams: any) => {
     'order[0][column]': 6,
     'order[0][dir]': 'desc',
     start,
-    length: pageSize,
+    length: PAGE_SIZE,
     'search[value]': '',
     'search[regex]': false,
     _: 1668629121419,
   };
-  const queryString = qs.stringify(params);
+  const queryParams = _.omit(contextParams, 'page');
+  const combinedParams = _.merge(params, queryParams);
+  const queryString = qs.stringify(combinedParams);
   const url = `https://programs.dsireusa.org/api/v1/programs?${queryString}`;
   try {
     const res = await fetch(url);
     const data = await res.json();
+
     return data;
   } catch (error) {
     return { error };

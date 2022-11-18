@@ -3,7 +3,7 @@ import Head from 'next/head';
 import styles from '../styles/Programs.module.css';
 import { ProgramItem } from '../components/programItem/ProgramItem';
 import { useRouter } from 'next/router';
-import { getResultsWithFilters } from '../utils';
+import { getResultsWithFilters, PAGE_SIZE } from '../utils';
 import { ActionButton } from '../components/actionButton/ActionButton';
 
 export async function getServerSideProps(context: any) {
@@ -19,6 +19,7 @@ export async function getServerSideProps(context: any) {
 const Programs: NextPage = ({ programs }: any) => {
   const router = useRouter();
   const data = programs.data;
+  const total = programs.recordsTotal;
   const query = router.query;
   const currentPage = Number(query.page) || 1;
   return (
@@ -30,7 +31,6 @@ const Programs: NextPage = ({ programs }: any) => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>We should put filters/breadcrumbs here</h1>
         <ul>
           {data?.map((program: any, i: number) => (
             <ProgramItem program={program} key={i} />
@@ -50,6 +50,7 @@ const Programs: NextPage = ({ programs }: any) => {
             Previous page
           </ActionButton>
           <ActionButton
+            disabled={(currentPage + 1) * PAGE_SIZE > total}
             onClick={() => {
               const updatedQueryParams = { ...query, page: currentPage + 1 };
               router.push({
