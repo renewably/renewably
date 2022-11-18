@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import logo from '../public/images/RenewablyLogo.png';
-import styles from '../styles/NavBar.module.css';
+import logo from '../../public/images/RenewablyLogo.png';
+import styles from './NavBar.module.css';
 
 const NavButton = ({ text, href }) => {
   return (

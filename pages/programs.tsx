@@ -1,74 +1,14 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import * as qs from 'qs';
-import styles from '../styles/Home.module.css';
-import { ProgramItem } from '../components/ProgramItem';
+import styles from '../styles/Programs.module.css';
+import { ProgramItem } from '../components/programItem/ProgramItem';
+import { useRouter } from 'next/router';
+import { getResultsWithFilters } from '../utils';
+import { ActionButton } from '../components/actionButton/ActionButton';
 
-export const getResultsWithFilters = async (start: number, length: number) => {
-  const params = {
-    draw: 1,
-    'columns[0][data]': 'name',
-    'columns[0][name]': '',
-    'columns[0][searchable]': true,
-    'columns[0][orderable]': true,
-    'columns[0][search][value]': '',
-    'columns[0][search][regex]': false,
-    'columns[1][data]': 'stateObj.abbreviation',
-    'columns[1][name]': '',
-    'columns[1][searchable]': true,
-    'columns[1][orderable]': true,
-    'columns[1][search][value]': '',
-    'columns[1][search][regex]': false,
-    'columns[2][data]': 'categoryObj.name',
-    'columns[2][name]': '',
-    'columns[2][searchable]': true,
-    'columns[2][orderable]': true,
-    'columns[2][search][value]': '',
-    'columns[2][search][regex]': false,
-    'columns[3][data]': 'typeObj.name',
-    'columns[3][name]': '',
-    'columns[3][searchable]': true,
-    'columns[3][orderable]': true,
-    'columns[3][search][value]': '',
-    'columns[3][search][regex]': false,
-    'columns[4][data]': 'published',
-    'columns[4][name]': '',
-    'columns[4][searchable]': true,
-    'columns[4][orderable]': true,
-    'columns[4][search][value]': '',
-    'columns[4][search][regex]': false,
-    'columns[5][data]': 'createdTs',
-    'columns[5][name]': '',
-    'columns[5][searchable]': true,
-    'columns[5][orderable]': true,
-    'columns[5][search][value]': '',
-    'columns[5][search][regex]': false,
-    'columns[6][data]': 'updatedTs',
-    'columns[6][name]': '',
-    'columns[6][searchable]': true,
-    'columns[6][orderable]': true,
-    'columns[6][search][value]': '',
-    'columns[6][search][regex]': false,
-    'order[0][column]': 6,
-    'order[0][dir]': 'desc',
-    start,
-    length,
-    'search[value]': '',
-    'search[regex]': false,
-    _: 1668629121419,
-  };
-  const queryString = qs.stringify(params);
-  const url = `https://programs.dsireusa.org/api/v1/programs?${queryString}`;
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    return { error };
-  }
-};
-export async function getServerSideProps() {
-  const programs = await getResultsWithFilters(0, 50);
+export async function getServerSideProps(context: any) {
+  const queryParams = context.query;
+  const programs = await getResultsWithFilters(queryParams);
   return {
     props: {
       programs,
@@ -77,8 +17,10 @@ export async function getServerSideProps() {
 }
 
 const Programs: NextPage = ({ programs }: any) => {
+  const router = useRouter();
   const data = programs.data;
-
+  const query = router.query;
+  const currentPage = Number(query.page) || 1;
   return (
     <div className={styles.container}>
       <Head>
@@ -88,23 +30,38 @@ const Programs: NextPage = ({ programs }: any) => {
       </Head>
 
       <main className={styles.main}>
-        <button
-          onClick={async () => {
-            const nextPageData = await getResultsWithFilters(50, 50);
-            console.log({ nextPageData });
-          }}
-        >
-          Next page, doesnt work
-        </button>
         <h1 className={styles.title}>We should put filters/breadcrumbs here</h1>
         <ul>
-          {data?.map((program: any) => (
-            <ProgramItem program={program} />
+          {data?.map((program: any, i: number) => (
+            <ProgramItem program={program} key={i} />
           ))}
         </ul>
+        <div className={styles.buttonContainer}>
+          <ActionButton
+            disabled={currentPage === 1}
+            onClick={() => {
+              const updatedQueryParams = { ...query, page: currentPage - 1 };
+              router.push({
+                pathname: router.pathname,
+                query: updatedQueryParams,
+              });
+            }}
+          >
+            Previous page
+          </ActionButton>
+          <ActionButton
+            onClick={() => {
+              const updatedQueryParams = { ...query, page: currentPage + 1 };
+              router.push({
+                pathname: router.pathname,
+                query: updatedQueryParams,
+              });
+            }}
+          >
+            Next page
+          </ActionButton>
+        </div>
       </main>
-
-      <footer className={styles.footer}></footer>
     </div>
   );
 };

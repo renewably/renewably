@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.css';
 import ProudPerson from '../public/images/ProudPerson.png';
 import Housie from '../public/images/housie.png';
 import Solar from '../public/images/Solar.png';
+import { ActionButton } from '../components/actionButton/ActionButton';
 
 const Home: NextPage = () => {
   return (
@@ -25,7 +26,7 @@ const Home: NextPage = () => {
             <Image src={Housie} height={200} width={200} />
             <Image src={Solar} height={200} width={200} />
           </div>
-          <button className={styles.actionButton}>Find Incentives</button>
+          <ActionButton>Find Incentives</ActionButton>
         </div>
       </main>
 

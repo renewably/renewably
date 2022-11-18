@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import styles from '../styles/ProgramItem.module.css';
+import styles from './ProgramItem.module.css';
 
 export const ProgramItem = ({ program }: any) => {
   const programId = program.id || program.ProgramId;
