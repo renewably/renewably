@@ -1,15 +1,18 @@
+@value colors: "../../styles/colors.css";
+@value primary from colors;
+
 .container {
   display: block;
   cursor: pointer;
   border-radius: 6px;
-  border: 2px solid #679436;
+  border: 2px solid primary;
   padding: 8px;
   margin: 16px;
 }
 .container:hover,
 .container:focus {
   outline: none;
-  background-color: #679436;
+  background-color: primary;
   opacity: 0.8;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   color: white;

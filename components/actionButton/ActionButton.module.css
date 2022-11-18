@@ -1,6 +1,9 @@
+@value colors: "../../styles/colors.css";
+@value primary from colors;
+
 .actionButton {
-  background-color: #679436;
-  border: 1px solid #679436;
+  background-color: primary;
+  border: 1px solid primary;
   border-radius: 5px;
   box-shadow: none;
   color: white;
@@ -18,6 +21,6 @@
   cursor: pointer;
   outline: none;
   background-color: white;
-  color: #679436;
+  color: primary;
   transition: all 0.3s ease;
 }
