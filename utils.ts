@@ -1,7 +1,7 @@
 import * as qs from 'qs';
 import * as _ from 'lodash';
 
-export const PAGE_SIZE = 10;
+export const PAGE_SIZE = 8;
 export const getResultsWithFilters = async (contextParams: any) => {
   const page = contextParams?.page || 1;
   const start = PAGE_SIZE * (page - 1);

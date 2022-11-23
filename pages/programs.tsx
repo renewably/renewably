@@ -1,3 +1,4 @@
+import * as React from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Programs.module.css';
@@ -5,6 +6,7 @@ import { ProgramItem } from '../components/programItem/ProgramItem';
 import { useRouter } from 'next/router';
 import { getResultsWithFilters, PAGE_SIZE } from '../utils';
 import { ActionButton } from '../components/actionButton/ActionButton';
+import { ProgramDetail } from '../components/programDetail/ProgramDetail';
 
 export async function getServerSideProps(context: any) {
   const queryParams = context.query;
@@ -22,6 +24,7 @@ const Programs: NextPage = ({ programs }: any) => {
   const total = programs.recordsTotal;
   const query = router.query;
   const currentPage = Number(query.page) || 1;
+  const [selectedProgram, setSelectedProgram] = React.useState(null);
   return (
     <div className={styles.container}>
       <Head>
@@ -31,38 +34,48 @@ const Programs: NextPage = ({ programs }: any) => {
       </Head>
 
       <main className={styles.main}>
-        <ul>
+        <ul className={styles.listContainer}>
           {data?.map((program: any, i: number) => (
-            <ProgramItem program={program} key={i} />
+            <ProgramItem
+              program={program}
+              key={i}
+              onClick={() => setSelectedProgram(program)}
+            />
           ))}
         </ul>
-        <div className={styles.buttonContainer}>
-          <ActionButton
-            disabled={currentPage === 1}
-            onClick={() => {
-              const updatedQueryParams = { ...query, page: currentPage - 1 };
-              router.push({
-                pathname: router.pathname,
-                query: updatedQueryParams,
-              });
-            }}
-          >
-            Previous page
-          </ActionButton>
-          <ActionButton
-            disabled={(currentPage + 1) * PAGE_SIZE > total}
-            onClick={() => {
-              const updatedQueryParams = { ...query, page: currentPage + 1 };
-              router.push({
-                pathname: router.pathname,
-                query: updatedQueryParams,
-              });
-            }}
-          >
-            Next page
-          </ActionButton>
-        </div>
+        {selectedProgram && (
+          <ProgramDetail
+            program={selectedProgram}
+            onClose={() => setSelectedProgram(null)}
+          />
+        )}
       </main>
+      <div className={styles.buttonContainer}>
+        <ActionButton
+          disabled={currentPage === 1}
+          onClick={() => {
+            const updatedQueryParams = { ...query, page: currentPage - 1 };
+            router.push({
+              pathname: router.pathname,
+              query: updatedQueryParams,
+            });
+          }}
+        >
+          Previous page
+        </ActionButton>
+        <ActionButton
+          disabled={(currentPage + 1) * PAGE_SIZE > total}
+          onClick={() => {
+            const updatedQueryParams = { ...query, page: currentPage + 1 };
+            router.push({
+              pathname: router.pathname,
+              query: updatedQueryParams,
+            });
+          }}
+        >
+          Next page
+        </ActionButton>
+      </div>
     </div>
   );
 };

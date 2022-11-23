@@ -7,8 +7,12 @@
   border-radius: 6px;
   border: 2px solid primary;
   padding: 8px;
-  margin: 16px;
+  margin: 16px 0;
+  width: 100%;
+  text-align: left;
+  background-color: transparent;
 }
+
 .container:hover,
 .container:focus {
   outline: none;

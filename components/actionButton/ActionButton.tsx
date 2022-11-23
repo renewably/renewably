@@ -1,8 +1,8 @@
 import styles from './ActionButton.module.css';
 
-export const ActionButton = (props) => {
+export const ActionButton = (props: any) => {
   // this blurs focus from button after clicking
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: Event) => {
     e.preventDefault();
     props.onMouseDown?.();
   };
