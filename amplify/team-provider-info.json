@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-renewably-dev-192945-authRole",
+      "UnauthRoleArn": "arn:aws:iam::283139682055:role/amplify-renewably-dev-192945-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::283139682055:role/amplify-renewably-dev-192945-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-renewably-dev-192945-deployment",
+      "UnauthRoleName": "amplify-renewably-dev-192945-unauthRole",
+      "StackName": "amplify-renewably-dev-192945",
+      "StackId": "arn:aws:cloudformation:us-east-2:283139682055:stack/amplify-renewably-dev-192945/eef9c000-6ac5-11ed-b427-060d51cf79c2",
+      "AmplifyAppId": "d2kh8akaoxfbkh"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2kh8akaoxfbkh",
+          "type": "cicd"
+        }
+      }
+    }
+  }
+}
