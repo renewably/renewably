@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
   // output: 'standalone',
   experimental: {
-    outputStandalone: true,
+    outputStandalone: false,
   },
 }
 
